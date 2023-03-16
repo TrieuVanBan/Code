@@ -1,10 +1,25 @@
 {
-    "users": [{
-        "username": "Ban",
-        "phone": "0866824564",
-        "password": "12345",
-        "repass": "12345",
-        "remember": true,
-        "id": 1
-    }]
+  "users": [
+    {
+      "username": "Ban",
+      "phone": "0866824564",
+      "password": "12345",
+      "repass": "12345",
+      "remember": true,
+      "id": 1
+    },
+    {
+      "username": "abc",
+      "phone": "03303003",
+      "password": "123",
+      "repass": "123",
+      "remember": true,
+      "id": 2
+    },
+    {
+      "password": "123",
+      "phone": "cccccccc",
+      "id": 3
+    }
+  ]
 }
