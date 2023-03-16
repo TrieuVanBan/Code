@@ -1,0 +1,10 @@
+{
+    "users": [{
+        "username": "Ban",
+        "phone": "0866824564",
+        "password": "12345",
+        "repass": "12345",
+        "remember": true,
+        "id": 1
+    }]
+}
