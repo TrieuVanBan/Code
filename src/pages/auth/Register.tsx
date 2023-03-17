@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { userType } from "../../type/user";
@@ -9,17 +8,21 @@ import { userType } from "../../type/user";
 const Register = () => {
   const navigate = useNavigate();
   const onFinish = (values: userType) => {
-    const { name, password, phone } = values;
+    console.log(values);
+
+    const { username, password, phone } = values;
     const data = {
-      name,
+      username,
       password,
       phone,
     };
+    console.log(data);
+
     axios
       .post("http://localhost:3000/users", data)
       .then((res) => {
         alert("Bạn đã đăng ký thành công!");
-        navigate("/signin");
+        navigate("/login");
       })
       .catch((err) => console.log(err));
   };
@@ -30,9 +33,10 @@ const Register = () => {
 
   const validateMessages = {
     required: "${label} không được để trống!",
-    types: {
-      number: "${label} phải là số!",
-    },
+    // types: {
+    //   number: "${label} phải là số!",
+    // },
+    // pattern: "${label} không đúng định dạng!"
   };
 
   return (
@@ -60,7 +64,7 @@ const Register = () => {
         <Form.Item
           label="PhoneNumber"
           name="phone"
-          rules={[{ required: true }]}
+          rules={[{ required: true }, { pattern: new RegExp(/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i), message: "Không đúng định dạng!" }]}
         >
           <Input />
         </Form.Item>
@@ -68,7 +72,10 @@ const Register = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true }]}
+          rules={[{ required: true }, {
+            min: 8,
+            message: 'Mật khẩu ít nhất 8 ký tự!',
+          },]}
           hasFeedback
         >
           <Input.Password />
@@ -100,7 +107,7 @@ const Register = () => {
           wrapperCol={{ offset: 8, span: 16 }}
         >
           <Checkbox>Remember me</Checkbox>
-          <Link to={"/signin"}>Đăng nhập</Link>
+          <Link to={"/login"}>Đăng nhập</Link>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

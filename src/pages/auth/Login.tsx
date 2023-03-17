@@ -1,33 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-const onFinish = (values: any) => {
-  //localhost:3000/users
-  axios
-    .get(`localhost:3000/users/phone=${values.phone}`)
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
-};
 
-const onFinishFailed = (errorInfo: any) => {
-  console.log("Failed:", errorInfo);
-};
+const Login = () => {
 
-const Signin = () => {
+    const onFinish = (values: any) => {
+        console.log("Success:", values);
+      };
+      
+      const onFinishFailed = (errorInfo: any) => {
+        console.log("Failed:", errorInfo);
+      };
   return (
-    <>
-      <h2 style={{ textAlign: "center" }}>Đăng nhập</h2>
+    <div>
+      <h2 style={{ textAlign: "center" }}>Đăng ký</h2>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -41,7 +28,7 @@ const Signin = () => {
         <Form.Item
           label="PhoneNumber"
           name="phone"
-          rules={[{ required: true, message: "Không để trống số điện thoại!" }]}
+          rules={[{ required: true, message: "Số điện thoại không để trống!" }]}
         >
           <Input />
         </Form.Item>
@@ -49,7 +36,7 @@ const Signin = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Không để trống mật khẩu!" }]}
+          rules={[{ required: true, message: "Mật khẩu không để trống!" }]}
         >
           <Input.Password />
         </Form.Item>
@@ -60,7 +47,7 @@ const Signin = () => {
           wrapperCol={{ offset: 8, span: 16 }}
         >
           <Checkbox>Remember me</Checkbox>
-          <Link to={"/register"}>Đăng ký</Link>
+          <Link to={"/login"}>Đăng ký</Link>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
@@ -69,8 +56,8 @@ const Signin = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 
-export default Signin;
+export default Login;

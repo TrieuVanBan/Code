@@ -29,7 +29,7 @@ const AdminLayout = () => {
             {
               key: '1',
               icon: <UserOutlined />,
-              label: 'nav 1',
+              label: 'Tài khoản',
             },
             {
               key: '2',

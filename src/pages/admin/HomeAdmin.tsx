@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import axios from 'axios';
 
 interface DataType {
   key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+  username: string;
+  phone: number;
 }
 
 const columns: ColumnsType<DataType> = [
   {
     title: 'Name',
-    dataIndex: 'name',
+    dataIndex: 'username',
   },
   {
-    title: 'Price',
-    dataIndex: 'price',
-  },
-  {
-    title: 'Image',
-    dataIndex: 'image',
+    title: 'PhoneNumber',
+    dataIndex: 'phone',
   },
   {
     title: 'Action',
@@ -28,19 +24,18 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data: DataType[] = [];
-for (let i = 0; i < 20; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
-
 const HomeAdmin = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/users')
+      .then((res) => {
+        setUsers(res.data.slice(0, 10));
+        console.log(users);
+      })
+  }, []) 
 
   const start = () => {
     setLoading(true);
@@ -71,7 +66,7 @@ const HomeAdmin = () => {
         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
       </span>
     </div>
-    <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      <Table rowSelection={rowSelection} columns={columns} dataSource={users} />
   </div>
   )
 }
