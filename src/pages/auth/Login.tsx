@@ -1,12 +1,21 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
 const Login = () => {
 
     const onFinish = (values: any) => {
+
         console.log("Success:", values);
+
+        //check
+        axios.get('http://localhost:3000/users')
+      .then((res) => {
+        const validUser = res.data.find((item: any) => item.phone === values.phone && item.password === values.password)
+        // console.log('is valid user = ', validUser ? 'true' : 'false')
+      })
       };
       
       const onFinishFailed = (errorInfo: any) => {
@@ -28,7 +37,7 @@ const Login = () => {
         <Form.Item
           label="PhoneNumber"
           name="phone"
-          rules={[{ required: true, message: "Số điện thoại không để trống!" }]}
+          rules={[{ required: true, message: "Số điện thoại không để trống !" }]}
         >
           <Input />
         </Form.Item>
@@ -36,7 +45,7 @@ const Login = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: "Mật khẩu không để trống!" }]}
+          rules={[{ required: true, message: "Mật khẩu không để trống !" }, {min: 8, message:"Mật khẩu ít nhất 8 kí tự !"}]}
         >
           <Input.Password />
         </Form.Item>
